@@ -14,6 +14,7 @@ const JSONGrid: React.FC<any> = ({
   customTheme = {},
 }) => {
   const [highlightedElement, setHighlightedElement] = useState<HTMLElement | null>(null);
+  const [hoveredElement, setHoveredElement] = useState<HTMLElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,6 +28,13 @@ const JSONGrid: React.FC<any> = ({
     return () => document.removeEventListener("click", handleClickOutside);
   }, [highlightedElement]);
 
+  const wrapperMouseLeaveHandler = () => {
+    if (hoveredElement !== null) {
+      hoveredElement.classList.remove(styles.hoverlight);
+      setHoveredElement(null);
+    }
+  };
+
   useEffect(() => {
     validateProps({
       data,
@@ -35,7 +43,7 @@ const JSONGrid: React.FC<any> = ({
       onSelect,
       highlightSelected,
       searchText,
-      theme
+      theme,
     });
   }, [data, defaultExpandDepth, onSelect, highlightSelected, searchText, theme]);
 
@@ -46,15 +54,22 @@ const JSONGrid: React.FC<any> = ({
     : defaultExpandKeyTree;
 
   return (
-    <div className={styles["json-grid-container"]} style={themeStyles} ref={wrapperRef}>
+    <div
+      className={styles["json-grid-container"]}
+      style={themeStyles}
+      ref={wrapperRef}
+      onMouseLeave={wrapperMouseLeaveHandler}
+    >
       <NestedJSONGrid
         level={0}
         keyPath={[]}
         data={data}
         highlightedElement={highlightedElement}
+        hoveredElement={hoveredElement}
         highlightSelected={highlightSelected}
         onSelect={onSelect}
         setHighlightedElement={setHighlightedElement}
+        setHoveredElement={setHoveredElement}
         defaultExpandDepth={defaultExpandDepth}
         defaultExpandKeyTree={mergedKeyTree}
         searchText={searchText}

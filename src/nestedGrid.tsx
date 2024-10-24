@@ -9,9 +9,11 @@ const NestedJSONGrid = (props: NestedGridProps) => {
     data,
     dataKey,
     highlightedElement,
+    hoveredElement,
     highlightSelected,
     onSelect,
     setHighlightedElement,
+    setHoveredElement,
     defaultExpandDepth,
     defaultExpandKeyTree,
     searchText,
@@ -37,7 +39,7 @@ const NestedJSONGrid = (props: NestedGridProps) => {
         nextHighlightElement?.parentElement?.children,
         nextHighlightElement
       );
-      nextKeyPath = [(isArray && !allObjects ? [rowIndex] : rowIndex)];
+      nextKeyPath = [isArray && !allObjects ? [rowIndex] : rowIndex];
     } else if (currentTarget.hasAttribute("data-colhighlight")) {
       const colIndex = Array.prototype.indexOf.call(currentTarget.parentElement?.children, currentTarget);
       nextHighlightElement = currentTarget.parentElement?.parentElement?.previousElementSibling?.children[
@@ -60,7 +62,7 @@ const NestedJSONGrid = (props: NestedGridProps) => {
         if (colIndex === 0) {
           nextKeyPath = [[key]];
         } else {
-          nextKeyPath = [(isArray ? parseInt(key) : key)];
+          nextKeyPath = [isArray ? parseInt(key) : key];
         }
       }
     }
@@ -69,19 +71,52 @@ const NestedJSONGrid = (props: NestedGridProps) => {
     onSelect(keyPath.concat(nextKeyPath));
   };
 
+  const hovered = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    const target = event.target as HTMLElement;
+    const currentTarget = event.currentTarget as HTMLElement;
+    if (
+      (target !== currentTarget && target.hasAttribute("data-clickable")) ||
+      (target.parentElement !== currentTarget && target.parentElement?.hasAttribute("data-clickable"))
+    )
+      return;
+
+    let nextHoverElement: HTMLElement | null = currentTarget;
+
+    if (hoveredElement != null) hoveredElement.classList.remove(styles.hoverlight);
+    if (currentTarget.hasAttribute("data-rowhighlight")) {
+      nextHoverElement = currentTarget.parentElement;
+    } else if (currentTarget.hasAttribute("data-colhighlight")) {
+      const colIndex = Array.prototype.indexOf.call(currentTarget.parentElement?.children, currentTarget);
+      nextHoverElement = currentTarget.parentElement?.parentElement?.previousElementSibling?.children[
+        colIndex
+      ] as HTMLElement | null;
+    }
+    if (highlightSelected) nextHoverElement?.classList.add(styles.hoverlight);
+    setHoveredElement(nextHoverElement);
+  };
+
   const renderValue = (key: string, value: any, level: number, keyTree: JSONObject, nextKeyPath: keyPathNode[]) => {
     if (value && typeof value === "object")
       return (
-        <td className={classnames(styles.obj, styles.value)} onClick={highlight} data-clickable="true" key={key}>
+        <td
+          className={classnames(styles.obj, styles.value)}
+          onClick={highlight}
+          onMouseOver={hovered}
+          data-clickable="true"
+          key={key}
+        >
           <NestedJSONGrid
             level={level + 1}
             keyPath={keyPath.concat(nextKeyPath)}
             dataKey={key}
             data={value}
             highlightedElement={highlightedElement}
+            hoveredElement={hoveredElement}
             highlightSelected={highlightSelected}
             onSelect={onSelect}
             setHighlightedElement={setHighlightedElement}
+            setHoveredElement={setHoveredElement}
             defaultExpandDepth={defaultExpandDepth}
             defaultExpandKeyTree={keyTree && keyTree[key]}
             searchText={searchText}
@@ -89,7 +124,13 @@ const NestedJSONGrid = (props: NestedGridProps) => {
         </td>
       );
     return (
-      <td className={classnames(styles.obj, styles.value)} onClick={highlight} data-clickable="true" key={key}>
+      <td
+        className={classnames(styles.obj, styles.value)}
+        onClick={highlight}
+        onMouseOver={hovered}
+        data-clickable="true"
+        key={key}
+      >
         <span
           className={classnames(styles[typeof value], matchesText(value, searchText) && styles["search-highlight"])}
         >
@@ -131,6 +172,7 @@ const NestedJSONGrid = (props: NestedGridProps) => {
                     className={classnames(styles.obj, styles.order, styles.name)}
                     key={key}
                     onClick={highlight}
+                    onMouseOver={hovered}
                     data-clickable="true"
                     data-colhighlight="true"
                   >
@@ -148,6 +190,7 @@ const NestedJSONGrid = (props: NestedGridProps) => {
                 <td
                   className={classnames(styles.obj, styles.order, styles.index)}
                   onClick={highlight}
+                  onMouseOver={hovered}
                   data-clickable="true"
                   data-rowhighlight="true"
                 >
@@ -157,6 +200,7 @@ const NestedJSONGrid = (props: NestedGridProps) => {
                 <td
                   className={classnames(styles.obj, styles.key, styles.name)}
                   onClick={highlight}
+                  onMouseOver={hovered}
                   data-clickable="true"
                 >
                   <span className={matchesText(key, searchText) ? styles["search-highlight"] : undefined}>{key}</span>

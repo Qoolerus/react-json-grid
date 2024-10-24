@@ -15,6 +15,7 @@
   --jg-table-icon-color: #ffffff;
 
   --jg-select-highlight-bg-color: #3b3b3b;
+  --jg-hover-light-bg-color: transparent;
   --jg-search-highlight-bg-color: #565a36;
 
   display: inline-block;
@@ -45,6 +46,10 @@
       display: inline-block;
       color: var(--jg-table-icon-color);
     }
+  }
+
+  .hoverlight {
+    background-color: var(--jg-hover-light-bg-color);
   }
 
   .highlight {

@@ -6,6 +6,7 @@ interface Theme {
   bgColor?: string;
   borderColor?: string;
   selectHighlightBgColor?: string;
+  hoverLightBgColor?: string,
   cellBorderColor?: string;
   keyColor?: string;
   indexColor?: string;
@@ -41,9 +42,11 @@ interface NestedGridProps {
   dataKey?: string;
   data: JSONObject;
   highlightedElement: HTMLElement | null;
+  hoveredElement: HTMLElement | null;
   highlightSelected: boolean;
   onSelect: (keyPath: keyPathNode[]) => void;
   setHighlightedElement: (element: HTMLElement | null) => void;
+  setHoveredElement: (element: HTMLElement | null) => void;
   defaultExpandDepth: number;
   defaultExpandKeyTree: JSONObject;
   searchText: string;

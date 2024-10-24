@@ -130,6 +130,7 @@ export function getThemeStyles(customTheme: Theme, theme: string): Record<string
     "--jg-table-header-bg-color": customTheme.tableHeaderBgColor || themeDetails.tableHeaderBgColor!,
     "--jg-table-icon-color": customTheme.tableIconColor || themeDetails.tableIconColor!,
     "--jg-select-highlight-bg-color": customTheme.selectHighlightBgColor || themeDetails.selectHighlightBgColor!,
+    "--jg-hover-light-bg-color": customTheme.hoverLightBgColor || themeDetails.hoverLightBgColor!,
     "--jg-search-highlight-bg-color": customTheme.searchHighlightBgColor || themeDetails.searchHighlightBgColor!,
   };
 }

@@ -121,6 +121,7 @@ Note: Pass one of above themes as a string in the theme prop. You can contribute
   "bgColor": "#222",
   "borderColor": "#b5b5b5",
   "selectHighlightBgColor": "#3b3b3b",
+  "hoverLightBgColor": "transparent",
   "cellBorderColor": "#474747",
   "keyColor": "#ffffff",
   "indexColor": "#949494",
