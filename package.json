@@ -32,8 +32,7 @@
     "test": "jest --silent --config jest.config.ts",
     "build": "rollup -c --bundleConfigAsCjs",
     "dev": "rollup -c -w --bundleConfigAsCjs",
-    "prepublishOnly": "npm run build",
-    "postinstall": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "engines": {
     "node": ">=8",
