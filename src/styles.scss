@@ -5,6 +5,7 @@
 
   --jg-key-color: #ffffff;
   --jg-index-color: #949494;
+  --jg-expand-group-color: #ffffff;
 
   --jg-number-color: #6c99bb;
   --jg-boolean-color: #6c99bb;
@@ -103,14 +104,16 @@
   }
 
   .title {
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--jg-expand-group-color);
   }
 
   .plusminus {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     margin-right: 2px;
+    color: var(--jg-expand-group-color);
   }
 
   .search-highlight {

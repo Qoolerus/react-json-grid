@@ -123,6 +123,7 @@ export function getThemeStyles(customTheme: Theme, theme: string): Record<string
     "--jg-cell-border-color": customTheme.cellBorderColor || themeDetails.cellBorderColor!,
     "--jg-key-color": customTheme.keyColor || themeDetails.keyColor!,
     "--jg-index-color": customTheme.indexColor || themeDetails.indexColor!,
+    "--jg-expand-group-color": customTheme.expandGroupColor || themeDetails.expandGroupColor!,
     "--jg-number-color": customTheme.numberColor || themeDetails.numberColor!,
     "--jg-boolean-color": customTheme.booleanColor || themeDetails.booleanColor!,
     "--jg-string-color": customTheme.stringColor || themeDetails.stringColor!,

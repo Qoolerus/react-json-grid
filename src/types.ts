@@ -10,6 +10,7 @@ interface Theme {
   cellBorderColor?: string;
   keyColor?: string;
   indexColor?: string;
+  expandGroupColor?: string;
   numberColor?: string;
   booleanColor?: string;
   stringColor?: string;

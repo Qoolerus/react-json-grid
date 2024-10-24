@@ -125,6 +125,7 @@ Note: Pass one of above themes as a string in the theme prop. You can contribute
   "cellBorderColor": "#474747",
   "keyColor": "#ffffff",
   "indexColor": "#949494",
+  "expandGroupColor": "#ffffff",
   "numberColor": "#6c99bb",
   "booleanColor": "#6c99bb",
   "stringColor": "#a5c261",
